@@ -8,13 +8,13 @@
 	"description": {
 		"full": {
 			"Cn_Simp": "",
-			"en_US": "readme..txt",
+			"en_US": "readme.txt",
 			"ru_RU": "",
 			"ua_UA": ""
 		},
 		"short": {
 			"Cn_Simp": "",
-			"en_US": "",
+			"en_US": "Original mod by Salamandre \r\nReworked and adapted for ERA 3 by Perry \r\n\r\nBounty Hunter Mod 1.0\r\n\r\nEach week you can hunt for a certain monster on the map.\r\nWhen you visist the town you will see in a splash screen this weeks bounty. Each killed creature is worth a certain gold amount. Kill as many as you can and then return to the city and hand in your reward.\r\nAdditionally to gold you will a certain chance to gain other rewards as well. The more challenging the monster you have hunted is, the hi",
 			"ru_RU": "",
 			"ua_UA": ""
 		}
