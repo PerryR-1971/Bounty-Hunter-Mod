@@ -1,0 +1,41 @@
+{
+  "bounty_h": {
+			"GEM_Visit": 						"Visit Bounty Hunter",
+			
+			"GEM_Info": 						"Every week, Janice the Clerk will ask you to defeat a particular monster. More groups of that monster you defeat that week, better the reward will be.",
+
+			"Janice_Info": 						"{~Chartreuse}JANICE THE CLERK{~}\n\nLeft-click to find this week Bounty. Right-click to know more on Bounty rules.",
+												
+			"groups": 							"groups",
+			"group": 							"group",
+			
+			"unlikely": 						"unlikely",
+			"low": 								"low",
+			"medium": 							"medium",
+			"likely": 							"likely",
+			"very high": 						"very high",
+			"guaranteed": 						"guaranteed",
+			
+			"Week_Bounty": 						"This week's bounty is on {~Chartreuse}@creature@{~}. The more creatures you kill, the better the bounty is.\nYou killed this week: {~Chartreuse}@number@{~} @creature@.\nRemember I will pay you {~r}@pay@{~} gold per creature and you will get {~orange}@token@{~} reward tokens.",
+																							
+			"Rewards_Info": 					"{~r}Bounty Rewards System:{~}\n\nEach creature is worth a certain amount of money. The more creatures you kill, the more money you will get for your trouble. You can collect the money any time during the week by returning to Janice and hand in the creatures. Any hero can receive the rewards. Next to money, there is also a chance for a special reward. The chance for the special rewards depends on the strength on the monsters and a hidden parameters.",												
+												
+			"Rewards": 							"You have no active hero! Select one then come back!",
+												
+			"Rewards_Give1": 					"Gold: {~r}%Y3{~}\nResources: {~r}%Y4{~}\nMithril: {~r}%Y5{~}\nExperience: {~r}%Y6{~}\n\nAttack: {~r}%Y7{~}\nDefense: {~r}%Y8{~}\nSpell Power: {~r}%Y9{~}\nKnowledge: {~r}%Y10{~}\n\nSpecial reward:\n\n",
+
+			"Town_Screen_No_Tum": 				"{~r}This weeks Bounties{~}\n\n%Z2 and %Z3\n\n\n{~>cprsmall.def:%Y4}     {~>cprsmall.def:%Y5}\n\n\nThe city will pay {{@pay@}} {~>SMALRES.def:6} for each creature you kill.\n\nNumber of reward tokens: {~orange}@token@{~}",
+
+			"Town_Screen_Tum": 					"{~r}This weeks Bounties{~}\n\n%Z2 %Z3 and %Z4\n\n\n{~>cprsmall.def:%Y4}     {~>cprsmall.def:%Y5}     {~>cprsmall.def:%Y6}\n\n\nThe city will pay {@pay@} {~>SMALRES.def:6} for each creature you kill.\n\nNumber of reward tokens: {~orange}@token@{~}",
+
+			"Bounty_Killed": 					"{Bounty Hunter}\n\nYou killed this weeks bounty. Return to town and visit {~g}Janice the Clerk{~} in the town hall to claim your reward.\n\nCurrent bounty kill counter: {~r}@number@{~}",
+
+			"reward_message1": 					"{~r}Bounty Reward{~}\n\nAdditional reward for your work %Z-10 is rewared with some resources:",
+			"reward_message2": 					"{~r}Bounty Reward{~}\n\nAdditional reward for your work %Z-10 is rewared with a primary skill point:",
+			"reward_message3": 					"{~r}Bounty Reward{~}\n\nAdditional reward for your work %Z-10 gains some of the experience points required for the next level:",	
+			"reward_message4": 					"{~r}Bounty Reward{~}\n\nAdditional reward for your work %Z-10 gets an artifact:",		
+			"reward_message5": 					"{~r}Bounty Reward{~}\n\nAdditional reward for your work %Z-10 learns a new spell:",
+			"reward_message6": 					"{~r}Bounty Reward{~}\n\nAdditional reward for your work %Z-10 is rewared with:\n\n+{~orange}%Z5{~}",			
+												
+  }
+}  

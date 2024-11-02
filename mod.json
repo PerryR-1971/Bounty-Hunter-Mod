@@ -1,0 +1,38 @@
+{
+	"caption": {
+		"Cn_Simp": "",
+		"en_US": "Bounty Hunter 1.0",
+		"ru_RU": "",
+		"ua_UA": ""
+	},
+	"description": {
+		"full": {
+			"Cn_Simp": "",
+			"en_US": "readme..txt",
+			"ru_RU": "",
+			"ua_UA": ""
+		},
+		"short": {
+			"Cn_Simp": "",
+			"en_US": "",
+			"ru_RU": "",
+			"ua_UA": ""
+		}
+	},
+	"author": "PerryR",
+	"homepage": "",
+	"icon": {
+		"file": "09.ico",
+		"index": 0
+	},
+	"mod_version": "1.0",
+	"priority": 0,
+	"compatibility": {
+		"class": "default",
+		"entries": {}
+	},
+	"platform": "era",
+	"info_version": "1.0",
+	"plugins": {},
+	"category": "gameplay"
+}

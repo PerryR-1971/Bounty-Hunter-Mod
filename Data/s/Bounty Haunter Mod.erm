@@ -1,0 +1,524 @@
+ZVSE2
+*Bounty Hunter Mod v1.0
+base idea and mod by Salamandre I assume? 
+Reworked for ERA 3 by Perry. Created in 2023
+
+
+!?FU(OnGameEnter);
+!!SN:W^Bounty_Reward_Creature_Level_0^/10; [Reward for Level 1 Creatures is 10 Gold]
+!!SN:W^Bounty_Reward_Creature_Level_1^/25;
+!!SN:W^Bounty_Reward_Creature_Level_2^/40;
+!!SN:W^Bounty_Reward_Creature_Level_3^/60;
+!!SN:W^Bounty_Reward_Creature_Level_4^/80;
+!!SN:W^Bounty_Reward_Creature_Level_5^/100;
+!!SN:W^Bounty_Reward_Creature_Level_6^/140;
+!!SN:W^Bounty_Reward_Creature_Level_7^/200;
+!!SN:W^Bounty_Reward_Creature_Level_8^/400; [Reward for Level 9 Creatures is 400 Gold]
+
+!!SN:W^Bounty_Reward_per_month^/2000;   [Base gold reward per game month]
+
+
+****************************************************************************************************
+*Generate a random not upgraded creature that is the bounty for the current week.
+!?FU(OnEveryDay)&i^timerIsAi^=0/i^timerWeekDay^=1/i^timerOnce^=1; [Trigger once on Monday]
+
+!!VRy3:S0R8;                            [Generate random town number 0-8]
+!!VRy4:S0R6;                            [get random dwelling number 0-6]
+!!VRy5:S0;                              [non upgraded variant 0]
+!!UN:Ty3/y4/y5/?y6;                     [Get creature ID for this weeks bounty]
+
+*!VRy6:S116;                            Test creature ID
+
+!!SN:W^Bounty_creature_0^/y6;           [Set creature ID]
+!!FU(GetUpgradedMonster):Py6/?y7;       [Check for Upgrade creature ID]
+!!SN:W^Bounty_creature_1^/y7;           [Set save first upgrade creature ID]
+!!FU(GetUpgradedMonster):Py7/?y8;       [Check for Upgrade creature ID]
+!!SN:W^Bounty_creature_2^/y8;           [Set save second upgrade creature ID]
+
+* Reward value is a random value that determines the size of the reward. The higher the creature level the better the chance for a higher reward value
+!!MA:Ly6/?y50;                          [Get level of that monster]
+!!SN:W^Bounty_Reward_Creature_Level_%Y50^/?y51; [Get Gold reward for the bounty]
+!!VRy20:S0;
+!!VRy20&y50=0:S5;
+!!VRy20&y50=1:S10;
+!!VRy20&y50=2:S15;
+!!VRy20&y50=3:S25;
+!!VRy20&y50=4:S35;
+!!VRy20&y50=5:S40;
+!!VRy20&y50=6:S45;
+!!VRy20&y50=7:S50;
+!!VRy20&y50=8:S70;
+!!VRy21:S0R65+y20;                      [Generate random value from 0 to 99 and add creature level modifier]
+!!SN:W^Bounty_Reward_Value^/y21;        [Save reward value]
+
+!!re y30/0/7;
+  !!SN:W^Bounty_Hunter_Player_%Y30^/0;  [reset flag for bounty hunter splash screen once every week]
+  !!SN:W^Bounty_Counter_Owner_%Y30^/0;  [reset groups counter]
+  !!SN:W^Bounty_Reward_Player_%Y30^/0;  [Reset flag if a reward has already been given this week]
+!!en;
+
+
+****************************************************************************************************
+*every first click on new week in new town shows bounties for that week
+!?FU(OnTownMouseClick);                 [trigger on clicking in town screen]
+
+!!CA-1:U?y30;                           [get town id]
+!!CA-1:T?y2;                            [get town type]
+!!CA-1:O?y3;                            [owner of the town: y-2]
+!!OW:C?y10;                             [current player: y-3]
+!!FU&y3<>y10:E;                         [Exit if player doesn't own town]
+
+!!SN:W^Bounty_Hunter_Player_%Y10^/?y99; [Get weekly flag for player and Exit if it has already been shown]
+!!if&y99=0;  
+  !!SN:W^Bounty_creature_0^/?y1; !!SN:W^Bounty_creature_1^/?y2; !!SN:W^Bounty_creature_2^/?y3; [get creatures]
+  !!VRy1&y1<0:S0; !!VRy2&y2<0:S0; !!VRy3&y3<0:S0; [avoid negative creature IDs for pictures defs]
+  !!VRy4:Sy1+2; !!VRy5:Sy2+2; !!VRy6:Sy3+2;
+  !!UN:N3/z2/y1/1;                      [get names of first creature]
+  !!UN:N3/z3/y2/1;                      [get names of second creature]
+  !!UN:N3/z4/y3/1;                      [get names of third creature]
+
+  !!SN:W^Bounty_Reward_Value^/?y21;     [Getreward value]
+  !!SN&y21>=0:T^bounty_h.unlikely^/?z9; [get text from json]
+  !!SN&y21>=20:T^bounty_h.low^/?z9;     [get text from json]
+  !!SN&y21>=40:T^bounty_h.medium^/?z9;  [get text from json]
+  !!SN&y21>=60:T^bounty_h.likely^/?z9;  [get text from json]
+  !!SN&y21>=80:T^bounty_h.very high^/?z9;[get text from json]
+  !!SN&y21>=100:T^bounty_h.guaranteed^/?z9; [get text from json]
+
+  !!SN:W^Bounty_Reward_Player_%Y2^/?y45;[Check if a reward has already been given this week]
+  !!VRy21&y45=1:-30;                    [If a reward has already been given this week, reduce the chance for further rewards by 30%]
+  !!VRy21&y21<0:S0;
+
+  !!VRy60&y21>=100:S4;                  [4 reward token]
+  !!VRy60&y21<100/y21>=70:S3;           [3 reward token]
+  !!VRy60&y21<70/y21>=50:S2;            [2 reward token]
+  !!VRy60&y21<50/y21>=35:S1;            [1 reward token]
+  !!VRy60&y21<35/y21>=0:S0;             [0 reward token]
+
+  !!MA:Ly1/?y50;                        [Get level of that monster]
+  !!SN:W^Bounty_Reward_Creature_Level_%Y50^/?y51; [Get Gold reward for the bounty]
+
+  !!SN:W^Typhon_Third_Upgrade_Mod_Active^/?y99;  
+  !!if&y99=0;                           [if message hasnt been shown, show once now for two creatures]
+    !!SN:T^bounty_h.Town_Screen_No_Tum^/?z8/^pay^/y51/^token^/y60 Iz8/?z8; [get text from json]
+    !!IF:M^%Z8^;                        [show message]
+  !!en;
+  !!if&y99=1;                           [show picture with three creatures]
+    !!SN:T^bounty_h.Town_Screen_Tum^/?z8/^pay^/y51/^token^/y60 Iz8/?z8; [get text from json]
+    !!IF:M^%Z8^;                        [show message]
+  !!en;
+  !!SN:W^Bounty_Hunter_Player_%Y10^/1;  [Set flag that splash screen was shown to that player]
+!!en;
+!!CM:S?y1;                              [Get what type of click]
+!!FU&y1<>14:E;                          [exit if not right click]
+!!CM:I?y1;                              [Get what type of click]
+!!FU&y1<10:E;                           [abort if not town hall type]
+!!FU&y1>13:E;                           [abort if not town hall type]
+!!FU(ACM_Bounty_Hunter_Townhall):P;     [call fct]
+
+
+****************************************************************************************************
+!?FU(ACM_Bounty_Hunter_Townhall);       [trigger on clicking in town screen)]
+
+!!DL213:N^Bounty.txt^;                  [load DL text]
+!!SN:W^Bounty_creature_0^/?y1;          [get unupgraded creature ID to show in picture]
+!!SN:W^Bounty_creature_1^/?y2;          [get upgraded creatures]
+!!VRy1&y1<0:S0; !!VRy2&y2<0:S0;         [avoid negative creature IDs for pictures defs]
+!!VRy4:Sy1+2; !!VRy5:Sy2+2;             [add + 2 to get correct dec cadre to show in wanted picture]
+
+!!DL213:A3/4/y4/1; !!DL213:A4/4/y5/1;   [set frames for bounty ID]
+!!VRz1:S^RunWoodPlanking.wav^;
+!!SN:Pz1;                               [play sound]
+!!OW:C?y2;                              [current player: y2]
+!!SN:W^Bounty_Counter_Owner_%Y2^/?y5;   [set bounty counter]
+!!DL213&y5<1:E10/0;                     [disable reward]
+!!SN:T^bounty_h.Janice_Info^/?z4 Iz4/?z4;[get text from json]
+!!DL213:H7/z4/1;                        [set text]
+!!FU(Bounty_Set_Hint):P;
+!!DL213:S1;                             [show dialogue]
+
+
+!?DL&v998=213/v999=30722/v1000=13;
+!!VRz1:S^WoodDRClose.wav^;
+!!SN:Pz1;
+!!DL213:C1;                             [play close door sound]
+!!UN:R2;                                [refresh screen]
+
+
+!?DL&v998=213/v999>4/v999<7/v1000=13;
+!!VRz1:S^Quest.wav^;
+!!SN:Pz1;                               [play quest sound]
+!!DL213:A5/4/0/1; !!DL213:A6/4/0/1;     [set correct def cadre for the two wanted signs in the window]
+!!FU(Bounty_Set_Hint):P;
+!!DL213:Av999/4/1/1;
+
+
+!?DL&v998=213/v999<>7/v1000=13;
+!!DL213:A7/4/0/1;                       [set def cadre]
+!!DL213:A2/4/1/1;
+
+
+!?DL&v998=213/v999=7/v1000=13;
+!!VRz30:S^^; !!VRz2:S^^;                [reset vars]
+!!VRz1:S^13_01.wav^;
+!!SN:Pz1;                               [play sound]
+!!DL213:A7/4/1/1;
+!!DL213:A2/4/0/1;
+!!SN:W^Bounty_creature_0^/?y1;          [Get first creature ID]
+!!UN:N3/z2/y1/1;                        [get names]
+!!OW:C?y20;                             [Get Owner]
+!!MA:Ly1/?y50;                          [Get level of that monster]
+!!SN:W^Bounty_Reward_Creature_Level_%Y50^/?y51; [Get Gold reward for the bounty]
+!!SN:W^Bounty_Reward_Value^/?y21;       [Getreward value]
+!!SN:W^Bounty_Reward_Player_%Y20^/?y45; [Check if a reward has already been given this week]
+!!VRy21&y45=1:-30;                      [If a reward has already been given this week, reduce the chance for further rewards by 30%]
+!!VRy21&y21<0:S0;
+!!VRy60&y21>=100:S4;                    [4 reward token]
+!!VRy60&y21<100/y21>=70:S3;             [3 reward token]
+!!VRy60&y21<70/y21>=50:S2;              [2 reward token]
+!!VRy60&y21<50/y21>=35:S1;              [1 reward token]
+!!VRy60&y21<35/y21>=0:S0;               [0 reward token]
+
+!!SN:W^Bounty_Counter_Owner_%Y20^/?y2;  [bounty counter]
+!!SN&y2<>:T^bounty_h.groups^/?z3;
+!!SN&y2=1:T^bounty_h.group^/?z3;
+!!SN:T^bounty_h.Week_Bounty^/?z30/^creature^/z2/^number^/y2/^pay^/y51/^token^/y60 Iz30/?z30;
+!!DL213:A1/3/z30/1;                     [set text]
+
+
+!?DL&v998=213/v999=7/v1000=14;
+!!SN:T^bounty_h.Rewards_Info^/?z2;
+!!IF:Q1/-1/-1/4^%Z2^;                   [show message with picture]
+
+
+!?FU(Bounty_Set_Hint);
+!!SN:W^Bounty_creature_0^/?y1;          [get creatures]
+!!UN:N3/z2/y1/1;                        [get names of first creature]
+!!VRz10:S^This weeks bounty: {~r}%Z2{~}^;
+!!DL213:H5/z10/1; !!DL213:H6/z10/1;     [Set hint text]
+
+
+****************************************************************************************************
+*In combat check if you fight this week bounties, if yes activate flag and count number of creatures
+*place result in a temp variable in case of battle replay, after battle show a message to the player
+*and tell him he can return to the city and collect the reward
+
+!?FU(OnCombatRound)&v997=0/1000;        [On first Battle round]
+!!SN:W^Bounty_present^/0;               [reset flag to activate message after combat]
+!!re y10/0/7;
+  !!SN:W^Temp_Bounty_Counter_Owner_%Y10^/0; [Reset Bounties temp var]
+!!en;
+!!BA:O?y10/?y20;                        [Get Battle Hero owner]
+!!SN:W^Bounty_creature_0^/?y3;          [Get bounty IDs]
+!!SN:W^Bounty_creature_1^/?y4;
+!!SN:W^Bounty_creature_2^/?y5;
+
+!!VRy20:Si^timerMonth^+3;               [Set y20 to current game month + 3. That will be the attack and defense increase of the bounty stacks]
+!!re i/21/41;                           [Loop Defender Battle Stacks]
+    !!BMi:T?y2 B?y6 N?y7;               [Get Monster type and amount of monsters at the beginning of the battle]
+    !!if|y2=y3/y2=y4/y2=y5;             [if any of the monsters is bounty]
+      !!SN&y7>0/y6>0:W^Bounty_present^/99; [Set flag active]
+      !!SN&y7>0/y6>0:W^Temp_Bounty_Counter_Owner_%Y10^/dy7; [set bounty counter for owner and add creatures that can be killed]
+      !!BMi&y7>0/y6>0:Ady20 Ddy20;      [add attack and defense based on game time]
+    !!en;
+!!en;
+
+
+!?FU(OnBattleReplay);                   [On Battle replay reset killed bountys]
+!!re y10/0/7;
+!!SN:W^Temp_Bounty_Counter_Owner_%Y10^/0;[Reset Bounties in Battle replay]
+!!en;
+
+
+!?FU(OnAfterBattleUniversal)&1000;      [at end of battle]
+!!SN:W^Bounty_present^/?y1;             [Check Flag]
+!!FU&y1<99:E;                           [exit if not activated]
+!!HE-1:O?y2;                            [get hero owner]
+!!BA:O?y2/?y77;                         [Get Battle Hero owner]
+!!FU&y2<0:E;                            [exit if hero has no owner meaning he is dead]
+!!SN:W^Temp_Bounty_Counter_Owner_%Y2^/?y6; [get temp bounty from fight and transfer to real variable]
+!!SN:W^Bounty_Counter_Owner_%Y2^/dy6;   [set bounty counter for owner]
+!!SN:W^Bounty_Counter_Owner_%Y2^/?y30;  [get bounty counter for owner]
+!!SN:T^bounty_h.Bounty_Killed^/?z30/^number^/y30;
+!!IF&999:M^%Z30^;                       [print text after battle]
+
+
+****************************************************************************************************
+*Rewards section
+*As reward you will get a base amount of gold + a few gold coins for every creature killed
+
+You get 2000 + 1500 for each game month
+Level 1: 5 gold per creature
+Level 2: 15 gold per creature
+Level 3: 30 gold per creature
+Level 4: 50 gold per creature
+Level 5: 70 gold per creature
+Level 6: 80 gold per creature
+Level 7: 150 gold per creature
+Level 8: 250 gold per creature
+
+!?DL&v998=213/v999=10/v1000=13;         [reward section]
+*!DL179:N^ACM_Reward.txt^;              [Name of Dialogue text file Parse Dialogue]
+
+!!OW:C?y2;                              [Get current owner]
+!!SN:W^Bounty_Counter_Owner_%Y2^/?y1;   [bounty counter]
+!!if&y1<1;
+  !!VRz1:S^13_04.wav^;
+  !!SN:Pz1;                             [play sound]
+  !!FU:E;                               [exit if no bounty was collected]
+!!en;
+!!CA-1:H1/?y44;                         [Get hero visitor town]
+!!if&y44<0;                             [If no hero]
+  !!SN:T^bounty_h.Rewards^/?z2;         [Get message text]
+  !!IF:M^%Z2^;                          [Show Message]
+  !!FU:E;                               [Exit if no active hero]
+!!en;
+
+[On the first iteration give the player gold]
+!!SN:W^Bounty_creature_0^/?y40;         [get creature ID that was bounty]
+!!MA:Ly40/?y41;                         [Get level of that monster]
+!!SN:W^Bounty_Reward_Creature_Level_%Y41^/?y51; [Get reward for creature]
+!!VRy20:Sy1*y51;                        [multiply killed creature by head target to calc bounty gold amount]
+!!SN:W^Bounty_Reward_per_month^/?y60;   [Base gold reward per game month]
+!!VRy3:Si^timerMonth^;
+!!VRy3:*y60;                            [base gold per Month]
+!!VRy11:S1000+y3+y20;                   [1000 Gold base + gold per game month + bounty counter times reward]
+!!VRy80:Si^timerMonth^;                 [Get month to calculate the maximum amount of gold the city can pay]
+!!VRy80:*50000;                         [Max 50k per game month]
+!!VRy11&y11>=y80:Sy80;                  [If calulated amount is bigger than max, set to max allowed amount]
+!!OW:Ry2/6/dy11;                        [Give Player Gold]
+!!SN:T^bounty_h.reward_message1^/?z2 Iz2/?z2;
+!!OW&y2<>-1:Iy2/?y4;                    [get AI (1) or human (0)]
+!!VRy5&y2<>-1/y4=0:S1;                  [human if has owner and that owner is human]
+!!IF&y5=1:Q2/6/y11/1/z2;                [If Bonus Show Picture]
+
+!!SN:W^Bounty_Reward_Value^/?y21;       [Getreward value]
+!!SN:W^Bounty_Reward_Player_%Y2^/?y45;  [Check if a reward has already been given this week]
+!!VRy21&y45=1:-30;                      [If a reward has already been given this week, reduce the chance for further rewards by 30%]
+!!VRy21&y21<0:S0;
+
+!!VRy60&y21>=100:S4;                    [4 reward token]
+!!VRy60&y21<100/y21>=70:S3;             [3 reward token]
+!!VRy60&y21<70/y21>=50:S2;              [2 reward token]
+!!VRy60&y21<50/y21>=35:S1;              [1 reward token]
+!!VRy60&y21<35/y21>=0:S0;               [0 reward token]
+
+!!re i/0/y60;
+  !!FU(Bounty_Hunter_Reward):Py44/y2/y1;[Pass hero, current owner, bounty counter and call reward function]
+!!en;
+
+!!VRz1:S^gold03.wav^;
+!!VRz2:S^13_02.wav^;
+!!SN:Pz1; !!SN:Pz2;
+!!OW:C?y2;                              [Get current owner]
+!!SN:W^Bounty_Counter_Owner_%Y2^/0;     [reset bounty counter]
+!!DL213:E10/0;                          [disable reward]
+!!SN:W^Bounty_Reward_Player_%Y2^/1;     [Set week flag that reward was already given for this week at least once]
+
+
+
+*Old reward DL currently not used and replaced by single pop up DLs
+!!FU:E;                                 [Exit fct]
+
+*!HEy44:B0/?z3;                         [Get hero name]
+*!HEy44:O?y6;                           [get owner of this hero]
+*!HEy44:B0/?z700;                       [get hero's name]
+*!HEy44:R2/?y5;                         [get hero's sex]
+*!HEy44:P?y80/?y81/?y82;                [get hero's position]
+
+*!SN:W^Bounty_creature_0^/?y40;
+*!MA:Ly40/?y50;                         [Get level of that monster]
+*!SN:W^Bounty_Reward_Creature_Level_%Y50^/?y51; [Reward for creature]
+*!VRy20:Sy1*y51;                        [multiply killed creature by head target to calc bounty gold amount]
+*!SN:W^Bounty_Reward_per_month^/?y60;   [Base gold reward per game month]
+*!VRy2:Si^timerMonth^;
+*!VRy2:*y60;                            [1500 Gold per Month]
+*!VRy3:S2000+y2+y20;                    [2000 Gold base]
+*!VRy80:Si^timerMonth^;                 [Get month to calculate the maximum amount of gold the city can pay]
+*!VRy80:*50000;                         [Max 50k per game month]
+*!VRy3&y3>=y80:Sy80;                    [If calulated amount is bigger than max, set to max allowed amount]
+*!OW:R-1/6/dy3;                         [Give Gold]
+*!VRy4:S1R3;                            [Set resources amount 1-4]
+*!OW:R-1/0/dy4;
+*!OW:R-1/1/dy4;
+*!OW:R-1/2/dy4;
+*!OW:R-1/3/dy4;
+*!OW:R-1/4/dy4;
+*!OW:R-1/5/dy4;
+*!VRy5:S3;                              [Set Mithril amount]
+*!OW:R-1/7/dy5;                         [Give Mithril]
+*!VRy6:S5000;                           [Experience]
+*!HEy44:Edy6;                           [Give Experience]
+*!VRy7:S0;                              [Experience]
+*!VRy8:S0;                              [Experience]
+*!VRy9:S0;                              [Experience]
+*!VRy10:S0;                             [Experience]
+*!VRz5:S^None^;
+*!SN:W^Bounty_Reward_Value^/?y30;
+*!VRy31:S0R5;                           [generate random value to dertermine Special Reward]
+
+*!if&y30>=y31;
+  *!VRy31:S1R5;                         [currently there are 4 special rewards]
+  *!VRz5&y31=1:S^Magic Strength^;
+  *!VRz5&y31=2:S^Spell Damage^;
+  *!VRz5&y31=3:S^Spell Crit Chance^;
+  *!VRz5&y31=4:S^Spell Crit Damage^;
+  *!VRz5&y31=5:S^Physical Crit Chance^;
+  *!VRz5&y31=6:S^Physical Crit Damage^;
+  *!SN&y31=1:W^ACM_Reward_Magic_Strength_%Y44^/d2; [Add Bonus stat to hero]
+  *!SN&y31=2:W^ACM_Reward_Spell_Damage_%Y44^/d2; [...]
+  *!SN&y31=3:W^ACM_Reward_Spell_Crit_Chance_%Y44^/d1; [...]
+  *!SN&y31=4:W^ACM_Reward_Spell_Crit_Damage_%Y44^/d2; [...]
+  *!SN&y31=5:W^ACM_Reward_Physical_Crit_Chance_%Y44^/d1; [...]
+  *!SN&y31=6:W^ACM_Reward_Physical_Crit_Damage_%Y44^/d2; [...]
+*!en;
+*!SN:T^bounty_h.Rewards_Give1^/?z2 Iz2/?z2; [get text]
+*!DL179:A4/3/z2/1;                      [Set text to text fields]
+*!DL179:S1;                             [Show dialogue]
+*!UN:R2;                                [Redraw Screen to show ne value of gold]
+*!VRz1:S^gold03.wav^;
+*!VRz2:S^13_02.wav^;
+*!SN:Pz1; *!SN:Pz2;
+*!OW:C?y2;                              [Get current owner]
+*!SN:W^Bounty_Counter_Owner_%Y2^/0;     [reset bounty counter]
+*!DL213:E10/0;                          [disable reward]
+
+
+****************************************************************************************************
+!?FU(gem_OnOpenButtonDlg);              [Function from GEM Mod that is called when clicking the new buttons]
+
+!!SN:T^bounty_h.GEM_Visit^/?z30;        [Description of building]
+!!SN:T^bounty_h.GEM_Info^/?z31;
+!!FU(gem_AddTownButton):P^Bounty.def^/44/44/^%Z30^/^%Z31^/^%Z31^/(ACM_Bounty_Hunter_Townhall)/0/0/0; [Bounty Hunter button in town list]
+
+****************************************************************************************************
+*Handles rewards
+!?FU(Bounty_Hunter_Reward);
+
+!!FU&i=0:E;                             [Exit in the first round]
+!!HEx1:B0/?z-10;                        [get hero name]
+!!HEx1:E?y6/?y7/1;                      [get level of this hero]
+!!VRy7:+5;                              [Add more level to give bigger rewards]
+!!SN:W^Advanced_Classes_Mod_Active^/?y1;[Set Mod as active]
+!!VRy50&y1=1:S0R9;                      [generate random number]
+!!VRy50&y1=0:S0R7;                      [generate random number without ACM specific rewards]
+
+**Resources Reward
+!!if|y50=0/y50=1;                       [Double Chance]
+  !!VRy8:Sy7;                           [Set Level to y8]
+  !!VRy8::5 +1;                         [some forumla]
+  !!VRy10:S0R5;                         [generate random resource]
+  !!VRy11&y10<6:S1R3 +y8;               [set value for res]
+  !!OW:Rx2/y10/dy11;                    [Give Player Resources]
+  !!SN:T^bounty_h.reward_message1^/?z2 Iz2/?z2;
+  !!OW&x2<>-1:Ix2/?y4;                  [get AI (1) or human (0)]
+  !!VRy5&x2<>-1/y4=0:S1;                [human if has owner and that owner is human]
+  !!IF&y5=1:Q2/y10/y11/1/z2;            [If Bonus Show Picture]
+!!en;
+
+**Primary Skill Reward
+!!if|y50=2/y50=3/y50=4;                 [Double Chance]
+  !!VRy5:S31R3;                         [random value for prim stats]
+  !!SN:T^bounty_h.reward_message2^/?z2 Iz2/?z2;
+  !!IF:Q1/y5/1/1/z2;                    [show dialouge]
+  !!HEx1&y5=31:Fd1/d/d/d;               [give appropriate bonus]
+  !!HEx1&y5=32:Fd/d1/d/d;               [give appropriate bonus]
+  !!HEx1&y5=33:Fd/d/d1/d;               [give appropriate bonus]
+  !!HEx1&y5=34:Fd/d/d/d1;               [give appropriate bonus]
+!!en;
+
+**Experience Reward
+!!if&y50=5;                             [Single Chance]
+  !!VRy6&y6>=15000000:S15000000;        [Fix for Var overflow]
+  !!VRy5:Sy6;                           [set to current exp value]
+  !!VRy5:*120:100 -y6;
+  !!VRy5::100 *15 +5000;                [some forumla]
+  !!SN:T^bounty_h.reward_message3^/?z2 Iz2/?z2;
+  !!IF:Q1/17/y5/1/z2;                   [show message to player]
+  !!HEx1:Edy5;                          [Give Experience]
+!!en;
+
+**Artifact Reward
+!!if&y50=6;                             [15=  Give Artifact]
+  !!VRy1:S0R2;
+  !!UN|y1=0/y1=1:J6/2/?y2;              [get a random Treasure artifact  2/3 chance]
+  !!UN&y1=2:J6/4/?y2;                   [get a random Minor artifact  1/3 chance]
+  !!SN:T^bounty_h.reward_message4^/?z2 Iz2/?z2;
+  !!IF&1000/999:Q2/8/y2/1/z2;
+  !!HEx1:Ay2;                           [Give Artifact]
+!!en;
+
+**Spell Reward
+!!if&y50=7;                             [16=  Teach Spell]
+  !!HEx1:A2/0/d/?y15;                   [Check for Spell Book]
+  !!FU&y15=0:E;                         [Exit if no Spell Book]
+  !!FU(ACM_GenerateRandomSpell):P1/4/x1/?y-99; [Function to generate a random level 1-4 spell which skips banned spells]
+  !!if&y-99>=0/y-99<=69;                [Valid Spell]
+    !!HEx1:S7/?y14;                     [7 Wisdom]
+    !!SSy-99:L?y5;                      [Spell Level]
+    !!FU&y5=5/y14<3:E;                  [Exit if Wisdom level not high enough]
+    !!FU&y5=4/y14<2:E;
+    !!FU&y5=3/y14<1:E;
+    !!SN:T^bounty_h.reward_message5^/?z2 Iz2/?z2;
+    !!IF&1000/999:Q2/9/y-99/1/z2;
+    !!HEx1:My-99/1;                     [Give Spell]
+  !!en;
+!!en;
+
+**Stats Reward
+!!if|y50=8/y50=9;                       [18=  Give ACM Reward]
+  !!VRy31:S1R5;                         [currently there are 6 special rewards]
+  !!VRz5&y31=1:S^2 Magic Strength^;
+  !!VRz5&y31=2:S^2% Spell Damage^;
+  !!VRz5&y31=3:S^1% Spell Crit Chance^;
+  !!VRz5&y31=4:S^2% Spell Crit Damage^;
+  !!VRz5&y31=5:S^1% Physical Crit Chance^;
+  !!VRz5&y31=6:S^2% Physical Crit Damage^;
+  !!SN&y31=1:W^ACM_Reward_Magic_Strength_%X1^/d2; [Add Bonus stat to hero]
+  !!SN&y31=2:W^ACM_Reward_Spell_Damage_%X1^/d2; [...]
+  !!SN&y31=3:W^ACM_Reward_Spell_Crit_Chance_%X1^/d1; [...]
+  !!SN&y31=4:W^ACM_Reward_Spell_Crit_Damage_%X1^/d2; [...]
+  !!SN&y31=5:W^ACM_Reward_Physical_Crit_Chance_%X1^/d1; [...]
+  !!SN&y31=6:W^ACM_Reward_Physical_Crit_Damage_%X1^/d2; [...]
+  !!SN:T^bounty_h.reward_message6^/?z2 Iz2/?z2;
+  !!IF&1000/999:Q2/11/3/1/^%Z2^;
+!!en;
+
+!!UN:R2;                                [Redraw]
+
+
+
+*Creature reward to army
+
+*Magic Strength rewards
+
+*Class Points reward
+
+*Artifact rewards
+
+*Spell Reward
+
+*Bonus damage to certain creature 
+
+*Flat damage block reward
+
+*Primary Stats reward
+
+*Commander Stats rewards
+
+*Spell Crit damage
+
+*Certain Spell boost rewards
+
+*Increased Scouting chance reward
+
+Test Code
+*?HM-1;                                 [Test code]
+*!SN:W^Bounty_creature_0^/112;          [Initialize monster ID]
+*!SN:W^Bounty_creature_1^/1;
+*!SN:W^Bounty_creature_2^/233;
+
+*!OW:C?y2;                              [current player: y2]
+*!SN:W^Bounty_Counter_Owner_%Y2^/?y5;   [set bounty counter]
+*!IF:L^Creatures Killed %Y5^;
+*!SN:W^Bounty_Counter_Owner_%Y2^/1000;    [set bounty counter]
