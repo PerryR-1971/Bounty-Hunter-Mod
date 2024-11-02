@@ -1,6 +1,6 @@
 ## Bounty Hunter Mod 1.0
 
-Original mod by Salamandre 
+> Original mod by Salamandre 
 Reworked and adapted for ERA 3 by PerryR 
 
 Each week you can hunt for a certain monster on the map.
