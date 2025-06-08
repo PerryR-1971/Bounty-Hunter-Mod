@@ -1,4 +1,4 @@
-## Bounty Hunter Mod 1.0
+## Bounty Hunter Mod 1.1
 
 > Original mod by Salamandre 
 Reworked and adapted for ERA 3 by PerryR 
@@ -10,7 +10,7 @@ Additionally to gold you will a certain chance to gain other rewards as well. Th
 -----------------------------------------------------------------------------------------------------------------------
 
 ## LATEST CHANGELOG
-2025-06-08 Release (1.0) by *PerryR*
+2025-06-08 Release (1.1) by *PerryR*
 - in the first weeks only low level monsters are to hunt
 - slightly reduced experience rewards in early game
 
