@@ -21,9 +21,17 @@ Reworked for ERA 3 by Perry. Created in 2023
 ****************************************************************************************************
 *Generate a random not upgraded creature that is the bounty for the current week.
 !?FU(OnEveryDay)&i^timerIsAi^=0/i^timerWeekDay^=1/i^timerOnce^=1; [Trigger once on Monday]
+!#VA(timerWeek:x);
 
 !!VRy3:S0R8;                            [Generate random town number 0-8]
 !!VRy4:S0R6;                            [get random dwelling number 0-6]
+
+!!VRy4&i^timerWeek^=1:S0R1;             [In the first week get only level 1-2 creatures]
+!!VRy4&i^timerWeek^=2:S0R2;             [In the second week get only level 1-3 creatures]
+!!VRy4&i^timerWeek^=3:S0R3;             [In the third week get only level 1-4 creatures]
+!!VRy4&i^timerWeek^=4:S0R4;             [In the fourth week get only level 1-5 creatures]
+!!VRy4&i^timerWeek^=5:S0R5;             [In the fith week get only level 1-6 creatures]
+!!VRy4&i^timerWeek^=6:S0R6;             [In the six week get only level 1-7 creatures]
 !!VRy5:S0;                              [non upgraded variant 0]
 !!UN:Ty3/y4/y5/?y6;                     [Get creature ID for this weeks bounty]
 
@@ -39,16 +47,16 @@ Reworked for ERA 3 by Perry. Created in 2023
 !!MA:Ly6/?y50;                          [Get level of that monster]
 !!SN:W^Bounty_Reward_Creature_Level_%Y50^/?y51; [Get Gold reward for the bounty]
 !!VRy20:S0;
-!!VRy20&y50=0:S5;
-!!VRy20&y50=1:S10;
-!!VRy20&y50=2:S15;
-!!VRy20&y50=3:S25;
+!!VRy20&y50=0:S5;                       [Level 1]
+!!VRy20&y50=1:S10;                      [...]
+!!VRy20&y50=2:S15;                      [...]
+!!VRy20&y50=3:S25;                      [...]
 !!VRy20&y50=4:S35;
 !!VRy20&y50=5:S40;
-!!VRy20&y50=6:S45;
-!!VRy20&y50=7:S50;
-!!VRy20&y50=8:S70;
-!!VRy21:S0R65+y20;                      [Generate random value from 0 to 99 and add creature level modifier]
+!!VRy20&y50=6:S50;
+!!VRy20&y50=7:S55;                      [level does not really exists]
+!!VRy20&y50=8:S70;                      [Level 9]
+!!VRy21:S0R60+y20;                      [Generate random value from 0 to 60 and add creature level modifier]
 !!SN:W^Bounty_Reward_Value^/y21;        [Save reward value]
 
 !!re y30/0/7;
@@ -432,7 +440,7 @@ Level 8: 250 gold per creature
   !!VRy6&y6>=15000000:S15000000;        [Fix for Var overflow]
   !!VRy5:Sy6;                           [set to current exp value]
   !!VRy5:*120:100 -y6;
-  !!VRy5::100 *15 +5000;                [some forumla]
+  !!VRy5::100 *15 +2000;                [some forumla]
   !!SN:T^bounty_h.reward_message3^/?z2 Iz2/?z2;
   !!IF:Q1/17/y5/1/z2;                   [show message to player]
   !!HEx1:Edy5;                          [Give Experience]
