@@ -10,6 +10,10 @@ Additionally to gold you will a certain chance to gain other rewards as well. Th
 -----------------------------------------------------------------------------------------------------------------------
 
 ## LATEST CHANGELOG
+2025-06-08 Release (1.0) by *PerryR*
+- in the first weeks only low level monsters are to hunt
+- slightly reduced experience rewards in early game
+
 2024-11-02 Release (1.0) by *PerryR*
 
 -----------------------------------------------------------------------------------------------------------------------
