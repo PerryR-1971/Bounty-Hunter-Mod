@@ -1,0 +1,17 @@
+
+
+
+	#	214	-1	-1	760	560	12	-1		1
+	Text	1	24	20	712	32		BigFont.fnt	7	0	1	8	
+	Text	2	24	58	712	28		MedFont.fnt	7	0	1	8	
+	Text	10	32	105	332	26		MedFont.fnt	7	0	0	8	
+	Text	11	32	139	332	90		MedFont.fnt	7	0	0	8	
+	Text	12	396	105	332	26		MedFont.fnt	7	0	0	8	
+	Text	13	396	139	332	90		MedFont.fnt	7	0	0	8	
+	Text	14	32	248	332	26		MedFont.fnt	7	0	0	8	
+	Text	15	32	282	332	110		MedFont.fnt	7	0	0	8	
+	Text	16	396	248	332	26		MedFont.fnt	7	0	0	8	
+	Text	17	396	282	332	110		MedFont.fnt	7	0	0	8	
+	Text	20	32	409	696	90		SmalFont.fnt	7	0	0	8	
+	Button	30722	348	510	64	32	iok6432.def	28	Close
+	#

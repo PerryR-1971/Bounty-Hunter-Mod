@@ -1,0 +1,227 @@
+ZVSE2
+****************************************************************************************************
+
+
+                    Bounty Hunter Config Window
+
+
+****************************************************************************************************
+* Public defaults: Lang/configuration.json may override these values.
+* Saved values from Runtime/bounty config.ini take final precedence for the selected contract.
+!#VRi^Bounty_Reward_Setting^:S2;
+!#VRi^Bounty_Config_Loaded^:S(FALSE);
+
+!#VRi^Bounty_Reward_Weight_Resources^:S20;
+!#VRi^Bounty_Reward_Weight_Primary_Skill^:S30;
+!#VRi^Bounty_Reward_Weight_Experience^:S10;
+!#VRi^Bounty_Reward_Weight_Artifact^:S10;
+!#VRi^Bounty_Reward_Weight_Spell^:S10;
+!#VRi^Bounty_Reward_Weight_ACM_Stats^:S20;
+!#VRi^Bounty_Reward_Weight_Magic_Pierce^:S2;
+!#VRi^Bounty_Reward_Weight_Spell_Upgrade^:S1;
+!#VRi^Bounty_Reward_Weight_Scouting^:S1;
+!#VRi^Bounty_Reward_Weight_Commander_Training^:S5;
+!#VRi^Bounty_Reward_Weight_Elemental_Mastery^:S3;
+!#VRi^Bounty_Reward_Weight_Luck_Chance^:S1;
+!#VRi^Bounty_Reward_Weight_Luck_Damage^:S2;
+
+!#VRi^Bounty_Profile_1_Weight_Resources^:S60;
+!#VRi^Bounty_Profile_1_Weight_Artifacts^:S15;
+!#VRi^Bounty_Profile_1_Weight_Training^:S20;
+!#VRi^Bounty_Profile_1_Weight_ACM^:S5;
+!#VRi^Bounty_Profile_2_Weight_Resources^:S10;
+!#VRi^Bounty_Profile_2_Weight_Artifacts^:S10;
+!#VRi^Bounty_Profile_2_Weight_Training^:S20;
+!#VRi^Bounty_Profile_2_Weight_ACM^:S60;
+!#VRi^Bounty_Profile_3_Weight_Resources^:S10;
+!#VRi^Bounty_Profile_3_Weight_Artifacts^:S60;
+!#VRi^Bounty_Profile_3_Weight_Training^:S20;
+!#VRi^Bounty_Profile_3_Weight_ACM^:S10;
+!#VRi^Bounty_Profile_4_Weight_Resources^:S10;
+!#VRi^Bounty_Profile_4_Weight_Artifacts^:S10;
+!#VRi^Bounty_Profile_4_Weight_Training^:S60;
+!#VRi^Bounty_Profile_4_Weight_ACM^:S20;
+
+!?FU(Bounty_LoadJsonDefaults);
+!!FU(LoadIntGlobalsFromJson):P^bounty_hunter.settings.^/^Bounty_^/^Config_Loaded^;
+!!FU(LoadIntGlobalsFromJson)&i^Bounty_Config_Loaded^:P^bounty_hunter.settings.^/^Bounty_^/^Reward_Setting^;
+!!FU(LoadIntGlobalsFromJson)&i^Bounty_Config_Loaded^:P^bounty_hunter.reward_weights.^/^Bounty_Reward_Weight_^/
+  ^Resources^/^Primary_Skill^/^Experience^/^Artifact^/^Spell^/^ACM_Stats^/
+  ^Magic_Pierce^/^Spell_Upgrade^/^Scouting^/^Commander_Training^/
+  ^Elemental_Mastery^/^Luck_Chance^/^Luck_Damage^;
+!!FU(LoadIntGlobalsFromJson)&i^Bounty_Config_Loaded^:P^bounty_hunter.exchange_profiles.profile_1.^/^Bounty_Profile_1_Weight_^/
+  ^Resources^/^Artifacts^/^Training^/^ACM^;
+!!FU(LoadIntGlobalsFromJson)&i^Bounty_Config_Loaded^:P^bounty_hunter.exchange_profiles.profile_2.^/^Bounty_Profile_2_Weight_^/
+  ^Resources^/^Artifacts^/^Training^/^ACM^;
+!!FU(LoadIntGlobalsFromJson)&i^Bounty_Config_Loaded^:P^bounty_hunter.exchange_profiles.profile_3.^/^Bounty_Profile_3_Weight_^/
+  ^Resources^/^Artifacts^/^Training^/^ACM^;
+!!FU(LoadIntGlobalsFromJson)&i^Bounty_Config_Loaded^:P^bounty_hunter.exchange_profiles.profile_4.^/^Bounty_Profile_4_Weight_^/
+  ^Resources^/^Artifacts^/^Training^/^ACM^;
+
+!#FU(Bounty_LoadJsonDefaults):P;
+
+
+!?FU(Configure_BountyHunter_mod);       [Open the Bounty Hunter configuration]
+
+!!DL172:N^Bounty_Set.txt^;              [Parse dialogue]
+!!FU(bounty_LoadOptionsFromIni):P;      [Load the persistent Runtime setting]
+!!FU(Bounty_NormalizeSelection):P;
+
+!!VRz90:S^bh_bg.pcx^;
+!!VRz91:S^bh_ok.pcx^;
+!!VRz92:S^bh_exit.pcx^;
+!!DL172:A100/11/z90/1 A30722/11/z91/1 A30721/11/z92/1;
+
+!!SN:T^Bounty_Set.Title^/?z1;
+!!SN:T^Bounty_Set.Modest_Label^/?z20;
+!!SN:T^Bounty_Set.Standard_Label^/?z21;
+!!SN:T^Bounty_Set.Generous_Label^/?z22;
+!!SN:T^Bounty_Set.Modest_Value^/?z23;
+!!SN:T^Bounty_Set.Standard_Value^/?z24;
+!!SN:T^Bounty_Set.Generous_Value^/?z25;
+!!SN:T^Bounty_Set.Confirm_Button^/?z70;
+!!SN:T^Bounty_Set.Cancel_Button^/?z71;
+!!DL172:A1/3/z1/1 A20/3/z20/1 A21/3/z21/1 A22/3/z22/1;
+!!DL172:A23/3/z23/1 A24/3/z24/1 A25/3/z25/1 A70/3/z70/1 A71/3/z71/1;
+
+!!SN:T^Bounty_Set.Modest_Hint^/?z60;
+!!SN:T^Bounty_Set.Standard_Hint^/?z61;
+!!SN:T^Bounty_Set.Generous_Hint^/?z62;
+!!SN:T^Bounty_Set.Current_Hint^/?z63;
+!!SN:T^Bounty_Set.Confirm_Hint^/?z64;
+!!SN:T^Bounty_Set.Cancel_Hint^/?z65;
+!!DL172:H20/60 H23/60 H40/60;
+!!DL172:H21/61 H24/61 H41/61;
+!!DL172:H22/62 H25/62 H42/62;
+!!DL172:H30/63;
+!!DL172:H30722/64 H70/64 H30721/65 H71/65;
+
+!!FU(Bounty_GetSelection):P?y1;
+!!SN:W^Bounty_Config_Original_Selection^/y1;
+!!FU(Bounty_Config_Refresh):P;
+!!DL172:S1;
+
+
+* The three contract pictures are selection buttons
+!?DL&v998=172/v999>=40/v999<=42/v1000=13;
+!!SN:P^Button.wav^;
+!!VRy1:Sv999-39;
+!!FU(Bounty_SetSelection):Py1;
+!!FU(Bounty_Config_Refresh):P;
+
+
+* Clicking a contract label selects the same option
+!?DL&v998=172/v999>=20/v999<=22/v1000=13;
+!!SN:P^Button.wav^;
+!!VRy1:Sv999-19;
+!!FU(Bounty_SetSelection):Py1;
+!!FU(Bounty_Config_Refresh):P;
+
+
+* Clicking the percentage selects the same option
+!?DL&v998=172/v999>=23/v999<=25/v1000=13;
+!!SN:P^Button.wav^;
+!!VRy1:Sv999-22;
+!!FU(Bounty_SetSelection):Py1;
+!!FU(Bounty_Config_Refresh):P;
+
+
+* Refresh the selected contract and its visual highlight
+!?FU(Bounty_Config_Refresh);
+!!FU(Bounty_GetSelection):P?y1;
+
+!!VRz50:S^bh_ln.pcx^;
+!!VRz51:S^bh_nn.pcx^;
+!!VRz52:S^bh_hn.pcx^;
+!!VRz50&y1=1:S^bh_ls.pcx^;
+!!VRz51&y1=2:S^bh_ns.pcx^;
+!!VRz52&y1=3:S^bh_hs.pcx^;
+!!DL172:A40/11/z50/1 A41/11/z51/1 A42/11/z52/1;
+
+!!SN&y1=1:T^Bounty_Set.Modest_Name^/?z31;
+!!SN&y1=2:T^Bounty_Set.Standard_Name^/?z31;
+!!SN&y1=3:T^Bounty_Set.Generous_Name^/?z31;
+!!SN:T^Bounty_Set.Current^/?z30/^contract^/^%Z31^;
+!!DL172:A30/3/z30/1;
+
+
+* Right-click information
+!?DL&v998=172/v1000=14;
+!!if|v999=20/v999=23/v999=40;
+  !!IF:M0/4/^%T(Bounty_Set.Modest_Info)^;
+!!en;
+!!if|v999=21/v999=24/v999=41;
+  !!IF:M0/4/^%T(Bounty_Set.Standard_Info)^;
+!!en;
+!!if|v999=22/v999=25/v999=42;
+  !!IF:M0/4/^%T(Bounty_Set.Generous_Info)^;
+!!en;
+
+
+* Cancel: restore the selection from before opening the window
+!?DL&v998=172/v999=30721/v1000=13;
+!!FU(Bounty_Config_Cancel):P;
+
+!?DL&v998=172/v999=71/v1000=13;
+!!FU(Bounty_Config_Cancel):P;
+
+!?FU(Bounty_Config_Cancel);
+!!SN:W^Bounty_Config_Original_Selection^/?y1;
+!!FU(Bounty_SetSelection):Py1;
+!!DL172:C1;
+
+
+* Confirm: apply and save the selected contract
+!?DL&v998=172/v999=30722/v1000=13;
+!!FU(Bounty_Config_Confirm):P;
+
+!?DL&v998=172/v999=70/v1000=13;
+!!FU(Bounty_Config_Confirm):P;
+
+!?FU(Bounty_Config_Confirm);
+!!SN:P^gold03.wav^;                     [Play gold sound when confirming the contract]
+!!FU(bounty_SaveOptionsToIni):P;
+!!DL172:C1;
+
+
+****************************************************************************************************
+* Selection helpers
+****************************************************************************************************
+!?FU(Bounty_SetSelection);              [x1 = 1 Modest, 2 Standard, 3 Generous]
+!!VRx1&x1<1:S2;
+!!VRx1&x1>3:S2;
+!!SN:W^Bounty_Reward_Setting^/x1;
+
+
+!?FU(Bounty_GetSelection);              [x1 = selected contract]
+!!SN:W^Bounty_Reward_Setting^/?x1;
+!!VRx1&x1<1:S2;
+!!VRx1&x1>3:S2;
+
+
+!?FU(Bounty_NormalizeSelection);
+!!SN:W^Bounty_Reward_Setting^/?y1;
+!!SN&y1<1:W^Bounty_Reward_Setting^/2;
+!!SN&y1>3:W^Bounty_Reward_Setting^/2;
+
+
+****************************************************************************************************
+* Persistent Runtime configuration
+****************************************************************************************************
+!?FU(bounty_LoadOptionsFromIni);
+!!VR(filePath:z):S^Runtime/bounty config.ini^;
+!!FU(ReadIniInts):P(filePath)/^bounty^/
+  ^Bounty_Reward_Setting^/?i^Bounty_Reward_Setting^/i^Bounty_Reward_Setting^;
+!!FU(Bounty_NormalizeSelection):P;
+
+
+!?FU(bounty_SaveOptionsToIni);
+!!VR(filePath:z):S^Runtime/bounty config.ini^;
+!!FU(WriteIniInts):P(filePath)/^bounty^/
+  ^Bounty_Reward_Setting^/i^Bounty_Reward_Setting^/;
+!!FU(SaveIni):P(filePath);
+
+
+* Load the global setting when ERA initializes the scripts
+!?PI;
+!!FU(bounty_LoadOptionsFromIni):P;

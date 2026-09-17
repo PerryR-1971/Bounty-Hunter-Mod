@@ -1,0 +1,55 @@
+{
+  "bounty_hunter": {
+    "_notes": {
+      "priority": "The saved Reward_Setting in Runtime/bounty config.ini overrides its JSON default.",
+      "reset": "Delete Runtime/bounty config.ini to use a changed Reward_Setting default again.",
+      "reward_setting": "1 = Modest, 2 = Standard, 3 = Generous.",
+      "weights": "All weights are relative and do not have to add up to 100. Use non-negative integers."
+    },
+    "settings": {
+      "Config_Loaded": "TRUE",
+      "Reward_Setting": "2"
+    },
+    "reward_weights": {
+      "Resources": "20",
+      "Primary_Skill": "30",
+      "Experience": "10",
+      "Artifact": "10",
+      "Spell": "10",
+      "ACM_Stats": "20",
+      "Magic_Pierce": "2",
+      "Spell_Upgrade": "1",
+      "Scouting": "1",
+      "Commander_Training": "5",
+      "Elemental_Mastery": "3",
+      "Luck_Chance": "1",
+      "Luck_Damage": "2"
+    },
+    "exchange_profiles": {
+      "profile_1": {
+        "Resources": "60",
+        "Artifacts": "15",
+        "Training": "20",
+        "ACM": "5"
+      },
+      "profile_2": {
+        "Resources": "10",
+        "Artifacts": "10",
+        "Training": "20",
+        "ACM": "60"
+      },
+      "profile_3": {
+        "Resources": "10",
+        "Artifacts": "60",
+        "Training": "20",
+        "ACM": "10"
+      },
+      "profile_4": {
+        "Resources": "10",
+        "Artifacts": "10",
+        "Training": "60",
+        "ACM": "20"
+      }
+    }
+  }
+}

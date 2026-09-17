@@ -2,9 +2,9 @@
   "bounty_h": {
 			"GEM_Visit": 						"Visit Bounty Hunter",
 			
-			"GEM_Info": 						"Every week, Janice the Clerk will ask you to defeat a particular monster. More groups of that monster you defeat that week, better the reward will be.",
+			"GEM_Info": 						"Every week, Janice the Clerk will ask you to defeat a particular monster. The more groups of that monster you defeat that week, the better the reward will be.",
 
-			"Janice_Info": 						"{~Chartreuse}JANICE THE CLERK{~}\n\nLeft-click to find this week Bounty. Right-click to know more on Bounty rules.",
+			"Janice_Info": 						"{~Chartreuse}JANICE THE CLERK{~}\n\nLeft-click to view this week's bounty. Right-click to view your bounty-hunter statistics.",
 												
 			"groups": 							"groups",
 			"group": 							"group",
@@ -16,26 +16,105 @@
 			"very high": 						"very high",
 			"guaranteed": 						"guaranteed",
 			
-			"Week_Bounty": 						"This week's bounty is on {~Chartreuse}@creature@{~}. The more creatures you kill, the better the bounty is.\nYou killed this week: {~Chartreuse}@number@{~} @creature@.\nRemember I will pay you {~r}@pay@{~} gold per creature and you will get {~orange}@token@{~} reward tokens.",
+			"Week_Bounty": 						"Bounty: {~Chartreuse}@creature@{~}\nKilled this week: {~Chartreuse}@number@{~} @creature@. Gold per creature: {~r}@pay@{~}.\nFirst weekly hand-in: {~orange}@token@{~} tokens. Stored: {~orange}@balance@{~}.\nHunter rank: {~Gold}@rank@{~} ({~Chartreuse}@completed@{~} completed contracts)",
 																							
-			"Rewards_Info": 					"{~r}Bounty Rewards System:{~}\n\nEach creature is worth a certain amount of money. The more creatures you kill, the more money you will get for your trouble. You can collect the money any time during the week by returning to Janice and hand in the creatures. Any hero can receive the rewards. Next to money, there is also a chance for a special reward. The chance for the special rewards depends on the strength on the monsters and a hidden parameters.",												
+			"Rewards_Info": 					"{~r}Bounty Rewards System:{~}\n\nEach bounty creature is worth a certain amount of gold. Return to Janice to hand in your kills; the gold is paid immediately. The first successful hand-in by each player per week can also award bounty tokens. Stored tokens are kept until you exchange them and belong to that player.\n\nWhen exchanging one token, choose a reward profile to influence which type of reward you receive. An active hero must be visiting the town.",
 												
 			"Rewards": 							"You have no active hero! Select one then come back!",
 												
 			"Rewards_Give1": 					"Gold: {~r}%Y3{~}\nResources: {~r}%Y4{~}\nMithril: {~r}%Y5{~}\nExperience: {~r}%Y6{~}\n\nAttack: {~r}%Y7{~}\nDefense: {~r}%Y8{~}\nSpell Power: {~r}%Y9{~}\nKnowledge: {~r}%Y10{~}\n\nSpecial reward:\n\n",
 
-			"Town_Screen_No_Tum": 				"{~r}This weeks Bounties{~}\n\n%Z2 and %Z3\n\n\n{~>cprsmall.def:%Y4}     {~>cprsmall.def:%Y5}\n\n\nThe city will pay {{@pay@}} {~>SMALRES.def:6} for each creature you kill.\n\nNumber of reward tokens: {~orange}@token@{~}",
+			"Town_Screen_No_Tum": 				"{~r}This week's Bounties{~}\n\n%Z2 and %Z3\n\n\n{~>cprsmall.def:%Y4}     {~>cprsmall.def:%Y5}\n\n\nThe city will pay {{@pay@}} {~>SMALRES.def:6} for each creature you kill.\n\nTokens available from the first hand-in: {~orange}@token@{~}\nStored bounty tokens: {~orange}@balance@{~}",
 
-			"Town_Screen_Tum": 					"{~r}This weeks Bounties{~}\n\n%Z2 %Z3 and %Z4\n\n\n{~>cprsmall.def:%Y4}     {~>cprsmall.def:%Y5}     {~>cprsmall.def:%Y6}\n\n\nThe city will pay {@pay@} {~>SMALRES.def:6} for each creature you kill.\n\nNumber of reward tokens: {~orange}@token@{~}",
+			"Town_Screen_Tum": 					"{~r}This week's Bounties{~}\n\n%Z2 %Z3 and %Z4\n\n\n{~>cprsmall.def:%Y4}     {~>cprsmall.def:%Y5}     {~>cprsmall.def:%Y6}\n\n\nThe city will pay {@pay@} {~>SMALRES.def:6} for each creature you kill.\n\nTokens available from the first hand-in: {~orange}@token@{~}\nStored bounty tokens: {~orange}@balance@{~}",
 
-			"Bounty_Killed": 					"{Bounty Hunter}\n\nYou killed this weeks bounty. Return to town and visit {~g}Janice the Clerk{~} in the town hall to claim your reward.\n\nCurrent bounty kill counter: {~r}@number@{~}",
+			"Town_Screen_Elite": 				"{~r}This week's Elite Bounty{~}\n\nJanice is looking for {~Chartreuse}%Z2{~}.\n\n\n{~>cprsmall.def:%Y4}\n\n\nThe city will pay {@pay@} {~>SMALRES.def:6} for each creature you kill.\n\nTokens available from the first hand-in: {~orange}@token@{~}\nStored bounty tokens: {~orange}@balance@{~}",
 
-			"reward_message1": 					"{~r}Bounty Reward{~}\n\nAdditional reward for your work %Z-10 is rewared with some resources:",
-			"reward_message2": 					"{~r}Bounty Reward{~}\n\nAdditional reward for your work %Z-10 is rewared with a primary skill point:",
+			"Bounty_Killed": 					"{Bounty Hunter}\n\nYou killed this week's bounty. Return to town and visit {~g}Janice the Clerk{~} in the town hall to claim your reward.\n\nCurrent bounty kill counter: {~r}@number@{~}",
+
+			"reward_message1": 					"{~r}Bounty Reward{~}\n\nAs an additional reward, %Z-10 receives some resources:",
+			"reward_message2": 					"{~r}Bounty Reward{~}\n\nAs an additional reward, %Z-10 receives a primary skill point:",
 			"reward_message3": 					"{~r}Bounty Reward{~}\n\nAdditional reward for your work %Z-10 gains some of the experience points required for the next level:",	
 			"reward_message4": 					"{~r}Bounty Reward{~}\n\nAdditional reward for your work %Z-10 gets an artifact:",		
 			"reward_message5": 					"{~r}Bounty Reward{~}\n\nAdditional reward for your work %Z-10 learns a new spell:",
-			"reward_message6": 					"{~r}Bounty Reward{~}\n\nAdditional reward for your work %Z-10 is rewared with:\n\n+{~orange}%Z5{~}",			
+			"reward_message6": 					"{~r}Bounty Reward{~}\n\nAs an additional reward, %Z-10 receives:\n\n+{~orange}%Z5{~}",
+			"reward_message7": 					"{~r}Rare ACM Bounty Reward{~}\n\n%Z-10 gains:\n\n+{~orange}1% Magic Pierce{~}",
+			"reward_message8": 					"{~r}Rare ACM Bounty Reward{~}\n\n%Z-10 gains:\n\n+{~orange}1 Spell Upgrade per combat{~}",
+			"reward_message9": 					"{~r}Rare ACM Bounty Reward{~}\n\n%Z-10 improves the hero's scouting ability by:\n\n+{~orange}25 Scouting Chance{~}",
+			"reward_message10": 				"{~r}Rare ACM Bounty Reward{~}\n\n%Z-10's commander gains:\n\n+{~orange}5% %Z5{~}",
+			"reward_message11": 				"{~r}Rare ACM Bounty Reward{~}\n\n%Z-10 gains:\n\n+{~orange}2 Magic Strength for %Z5 spells{~}",
+			"reward_message12": 				"{~r}Rare ACM Bounty Reward{~}\n\n%Z-10 gains:\n\n+{~orange}1% Luck Strike Chance{~}",
+			"reward_message13": 				"{~r}Rare ACM Bounty Reward{~}\n\n%Z-10 gains:\n\n+{~orange}10% Luck Strike Damage{~}",
+
+			"Current_Bounty_Hint": 			"This week's bounty: {~r}@creature@{~}",
+			"Reward_Button_Hint": 			"Left-click to hand in defeated bounty creatures. Right-click for information about bounty rewards.",
+			"Statistics_Button_Hint": 		"Open your personal bounty-hunter statistics.",
+			"Reroll_Hint": 					"Reroll this week's bounty for @cost@ gold. This can be done once per week and changes the target for every player.",
+			"Reroll_Locked_Hint": 			"Complete your first bounty contract and reach Novice Hunter rank to unlock rerolling.",
+			"Reroll_Used_Hint": 				"The weekly bounty has already been rerolled.",
+			"Reroll_Info": 					"{Reroll Bounty}\n\nRerolling is unlocked at Novice Hunter rank. Its price decreases at higher ranks and becomes free for a Legendary Hunter. The reroll is shared by all players and can only be used once per week. It is no longer available after any player has defeated a bounty creature.",
+			"Reroll_Confirm": 					"Reroll this week's bounty?\n\nCost: {~Gold}@cost@ gold{~}\n\nThis changes the target for every player and can only be done once this week.",
+			"Reroll_Already_Used": 			"This week's bounty has already been rerolled.",
+			"Reroll_Blocked": 					"The bounty can no longer be rerolled because at least one player has already defeated a bounty creature this week.",
+			"Reroll_Locked": 					"You must reach {~Gold}Novice Hunter{~} rank before Janice will allow you to reroll a bounty.",
+			"Reroll_Not_Enough_Gold": 		"You do not have enough gold to reroll this bounty.\n\nCost: {~Gold}@cost@ gold{~}\nYour gold: {~Gold}@gold@{~}",
+
+			"Bounty_Payment": 					"{~r}Bounty Payment{~}\n\nGold paid immediately: {~Gold}@gold@{~}\nBounty tokens awarded: {~orange}@tokens@{~}\nStored bounty tokens: {~orange}@balance@{~}",
+			"Token_Exchange_Hint": 			"Exchange one stored bounty token for a weighted reward. Current balance: {~orange}@balance@{~}",
+			"Token_Exchange_Info": 			"{Bounty Token Exchange}\n\nExchange one stored bounty token at a time. Choose a profile to influence the reward category. The exact reward within that category is selected randomly. Supplies favors resources, Treasure Hunt favors artifacts, and Training and Knowledge favors primary skills, experience and spells. ACM Rewards is available only while the Advanced Classes Mod is active.\n\nAn active hero must be visiting the town to receive the reward.",
+			"Token_Exchange_Title": 			"Exchange one bounty token. Stored tokens: @balance@",
+			"Token_Profile_Supplies": 		"Supplies - mostly resources",
+			"Token_Profile_ACM": 				"ACM Rewards - mostly Advanced Classes bonuses",
+			"Token_Profile_Artifacts": 		"Treasure Hunt - mostly artifacts",
+			"Token_Profile_Training": 		"Training and Knowledge - mostly primary skills, experience and spells",
+			"Token_No_Tokens": 				"You do not have any stored bounty tokens to exchange.",
+			"Token_No_Hero": 					"An active hero must be visiting this town to receive a bounty-token reward.",
+			"Token_Exchange_Failed": 		"No valid reward could be generated. Your bounty token was not spent; please try again.",
+			"Bounty_Statistics": 				"{Bounty Hunter Statistics}\n\nHunter rank: {~Gold}@rank@{~}\nCompleted contracts: {~Chartreuse}@contracts@{~}\nDefeated bounty creatures: {~Chartreuse}@kills@{~}\nGold earned from bounties: {~Gold}@gold@{~}\nBounty tokens earned: {~orange}@tokens@{~}\nStored bounty tokens: {~orange}@balance@{~}\nCompleted elite contracts: {~r}@elite@{~}",
+
+			"Ranks_Title": "{~Gold}Hunter Ranks{~}",
+  "Ranks_Current": "Current rank: {~Gold}@rank@{~}   |   Completed contracts: {~Chartreuse}@contracts@{~}",
+  "Ranks_Novice_Title": "{~Chartreuse}Novice Hunter - 1 contract{~}",
+  "Ranks_Novice_Body": "{~White}Bounty gold: {~}{~Gold}+5%{~}\n{~White}Weekly bonus tokens: {~}{~orange}none{~}\n{~Chartreuse}Rerolling unlocked at full price{~}",
+  "Ranks_Skilled_Title": "{~Cyan}Skilled Hunter - 4 contracts{~}",
+  "Ranks_Skilled_Body": "{~White}Bounty gold: {~}{~Gold}+10%{~}\n{~White}Weekly bonus tokens: {~}{~orange}+1{~}\n{~White}Reroll price: {~}{~Chartreuse}25% discount{~}",
+  "Ranks_Master_Title": "{~MediumPurple}Master Hunter - 10 contracts{~}",
+  "Ranks_Master_Body": "{~White}Bounty gold: {~}{~Gold}+15%{~}\n{~White}Weekly bonus tokens: {~}{~orange}+1{~}\n{~White}Reroll price: {~}{~Chartreuse}50% discount{~}\n{~White}Token calculation: {~}{~Cyan}reward value +5{~}",
+  "Ranks_Legendary_Title": "{~orange}Legendary Hunter - 20 contracts{~}",
+  "Ranks_Legendary_Body": "{~White}Bounty gold: {~}{~Gold}+25%{~}\n{~White}Weekly bonus tokens: {~}{~orange}+2{~}\n{~White}Reroll price: {~}{~Chartreuse}free{~}\n{~White}Token calculation: {~}{~Cyan}reward value +5{~}",
+  "Ranks_Rules": "Only the first successful hand-in each week counts as a contract and awards tokens.\nBonuses listed are totals for each rank, not cumulative. Gold bonus applies to the creature-based amount.\nMaster / Legendary: +5 reward value can raise the base token award when a threshold is reached.\nRerolls affect all players, once per week, before any player defeats a bounty creature.",
+    "Hunter_Ranks_Hint": "View hunter ranks, required contracts and rank bonuses.",
+    "Hunter_Ranks_Info": "{Hunter Ranks}\n\n{~Gold}Novice - 1 contract{~}\nGold +5%. Unlocks rerolls.\n\n{~Gold}Skilled - 4 contracts{~}\nGold +10%. Tokens +1. Reroll cost -25%.\n\n{~Gold}Master - 10 contracts{~}\nGold +15%. Tokens +1. Reroll cost -50%.\nReward value +5 for token calculation.\n\n{~Gold}Legendary - 20 contracts{~}\nGold +25%. Tokens +2. Free rerolls.\nReward value +5 for token calculation.\n\nFirst successful hand-in per week only:\n1 contract completed and tokens awarded.\nListed bonuses do not stack between ranks.\nGold bonus: creature-dependent bounty only.",
+    "Hunter_Rank_None": 				"No rank",
+			"Hunter_Rank_Novice": 			"Novice Hunter",
+			"Hunter_Rank_Skilled": 			"Skilled Hunter",
+			"Hunter_Rank_Master": 				"Master Hunter",
+			"Hunter_Rank_Legendary": 		"Legendary Hunter",
+			"Hunter_Rank_Promotion": "{Bounty Hunter Promotion}\n\nJanice has recognized your successful work.\n\nNew rank: {~Gold}@rank@{~}\nCompleted contracts: {~Chartreuse}@completed@{~}\n\n@bonuses@"
 												
-  }
-}  
+  },
+	"Bounty_Set": {
+    "Title": "Bounty Hunter Contracts",
+    "Modest_Label": "{~Black}Modest Contract{~}",
+    "Standard_Label": "{~Black}Standard Contract{~}",
+    "Generous_Label": "{~Black}Generous Contract{~}",
+    "Modest_Value": "{~Black}Lower rewards{~}",
+    "Standard_Value": "{~Black}Normal rewards{~}",
+    "Generous_Value": "{~Black}Higher rewards{~}",
+    "Modest_Name": "Modest - lower rewards",
+    "Standard_Name": "Standard - normal rewards",
+    "Generous_Name": "Generous - higher rewards",
+    "Current": "Choose Janice's bounty contract.\nCurrent contract: @contract@",
+    "Modest_Hint": "Select the Modest Contract: lower bounty rewards and the smallest combat bonus for bounty creatures.",
+    "Standard_Hint": "Select the Standard Contract: normal bounty rewards and a moderate combat bonus for bounty creatures.",
+    "Generous_Hint": "Select the Generous Contract: higher bounty rewards and the largest combat bonus for bounty creatures.",
+    "Current_Hint": "The selected contract controls bounty gold rewards and the additional Attack and Defense of bounty creatures.",
+    "Confirm_Button": "Confirm",
+    "Cancel_Button": "Exit",
+    "Confirm_Hint": "Apply and save the selected bounty contract.",
+    "Cancel_Hint": "Discard changes and restore the previous bounty contract.",
+    "Modest_Info": "{Modest Contract}\n\nJanice pays lower rewards for defeated bounty creatures. Bounty stacks receive the smallest additional Attack and Defense bonus.",
+    "Standard_Info": "{Standard Contract}\n\nJanice pays the standard rewards for defeated bounty creatures. Bounty stacks receive a moderate additional Attack and Defense bonus.",
+    "Generous_Info": "{Generous Contract}\n\nJanice pays higher rewards for defeated bounty creatures. Bounty stacks receive the largest additional Attack and Defense bonus."
+}
+}

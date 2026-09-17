@@ -1,0 +1,20 @@
+
+
+
+	#	213	-1	8	536	520	12	-1		1
+	Def	2	16	18	505	375	BhuntHO.def	1	16	
+	Def	3	210	152	32	32	cprsmall.def	0	16	
+	Def	4	294	156	32	32	cprsmall.def	0	16	
+	Button	30722	493	495	36	18	btybtt.def	2	Close
+	Pcx	5	208	150	37	37	box64x32.pcx	2048	This week bounty
+	Pcx	6	291	154	37	37	box64x32.pcx	2048	This week bounty
+	Def	7	209	174	110	105	femme.def	0	16	
+	Def	8	14	394	507	86	bountytxt.def	0	16	
+	Text	1	16	432	504	48		Times08r.fnt	7	0	1	8	
+	Def	9	240	397	68	32	Bnttrade.def	0	16	
+	Button	10	242	396	64	32	Trdcheck.def	2	Get your reward!
+	Pcx	15	114	130	46	70	box64x32.pcx	2048	
+	Pcx	14	52	138	28	52	box64x32.pcx	2048	
+	Pcx	13	392	396	64	32	box64x32.pcx	2048	
+	Pcx	11	464	335	48	48	box64x32.pcx	2048	
+	#
