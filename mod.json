@@ -1,15 +1,24 @@
 {
+  "caption": {
+    "en_US": "Bounty Hunter"
+  },
   "name": {
     "en": "Bounty Hunter",
     "ru": "Охотник за головами"
   },
   "description": {
+    "full": {
+      "en_US": "readme.txt"
+    },
     "en": "readme.txt"
   },
   "author": "PerryR",
   "homepage": "https://github.com/PerryR-1971/Bounty-Hunter-Mod",
   "support": "https://discord.gg/hCTMfVq6w5",
-  "icon": "09.ico",
+  "icon": {
+    "file": "09.ico"
+  },
+  "mod_version": "1.2",
   "version": "1.2",
   "category": "gameplay",
   "compatibility": {
